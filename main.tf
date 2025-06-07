@@ -1,21 +1,6 @@
 # Azure Resource Group Terraform Module
 # Creates an Azure Resource Group with optional management lock and RBAC capabilities
 
-terraform {
-  required_version = ">= 1.5.0"
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = ">= 3.0"
-    }
-  }
-}
-
-# Configure the Azure Provider
-provider "azurerm" {
-  features {}
-}
-
 # Create the Resource Group
 resource "azurerm_resource_group" "this" {
   name     = var.name
