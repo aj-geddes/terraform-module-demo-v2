@@ -21,11 +21,16 @@ terraform {
 provider "azurerm" {
   # Mock values for testing with Terry
   features {}
-  skip_provider_registration = true
-  subscription_id           = "00000000-0000-0000-0000-000000000000"
-  tenant_id                 = "00000000-0000-0000-0000-000000000000"
-  client_id                 = "00000000-0000-0000-0000-000000000000"
-  client_secret             = "mock-client-secret"
+  
+  # Using the newer syntax instead of deprecated skip_provider_registration
+  resource_provider_registrations = {
+    enabled = false
+  }
+  
+  subscription_id = "00000000-0000-0000-0000-000000000000"
+  tenant_id       = "00000000-0000-0000-0000-000000000000"
+  client_id       = "00000000-0000-0000-0000-000000000000"
+  client_secret   = "mock-client-secret"
 }
 
 # Module configuration for testing
