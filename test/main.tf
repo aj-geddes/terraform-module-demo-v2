@@ -4,6 +4,7 @@ provider "azuread" {
   client_id     = "00000000-0000-0000-0000-000000000000"
   client_secret = "mock-client-secret"
 }
+
 # Test configuration for Terraform Module Demo
 # Used with Terry to validate module functionality
 
