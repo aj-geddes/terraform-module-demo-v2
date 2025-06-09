@@ -1,3 +1,9 @@
+# Configure the AzureAD Provider with mock values
+provider "azuread" {
+  tenant_id     = "00000000-0000-0000-0000-000000000000"
+  client_id     = "00000000-0000-0000-0000-000000000000"
+  client_secret = "mock-client-secret"
+}
 # Test configuration for Terraform Module Demo
 # Used with Terry to validate module functionality
 
@@ -14,9 +20,13 @@ terraform {
 
 # Configure the Azure Provider
 provider "azurerm" {
+  # Mock values for testing with Terry
   features {}
-  # For Terry tests, we'll just use simple provider configuration
   skip_provider_registration = true
+  subscription_id           = "00000000-0000-0000-0000-000000000000"
+  tenant_id                 = "00000000-0000-0000-0000-000000000000"
+  client_id                 = "00000000-0000-0000-0000-000000000000"
+  client_secret             = "mock-client-secret"
 }
 
 # Module configuration for testing
