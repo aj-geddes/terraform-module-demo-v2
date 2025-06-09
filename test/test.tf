@@ -1,10 +1,3 @@
-# Configure the AzureAD Provider with mock values
-provider "azuread" {
-  tenant_id     = "00000000-0000-0000-0000-000000000000"
-  client_id     = "00000000-0000-0000-0000-000000000000"
-  client_secret = "mock-client-secret"
-}
-
 # Test configuration for Terraform Module Demo
 terraform {
   required_version = ">= 1.5.0"
@@ -14,23 +7,22 @@ terraform {
       source  = "hashicorp/azurerm"
       version = ">= 3.0"
     }
+    azuread = {
+      source  = "hashicorp/azuread" 
+      version = ">= 2.0"
+    }
   }
 }
 
-# Configure the Azure Provider
+# Configure the Azure Provider to use Azure CLI authentication
 provider "azurerm" {
-  # Mock values for testing with Terry
   features {}
-  
-  # Using the newer syntax instead of deprecated skip_provider_registration
-  resource_provider_registrations = {
-    enabled = false
-  }
-  
-  subscription_id = "00000000-0000-0000-0000-000000000000"
-  tenant_id       = "00000000-0000-0000-0000-000000000000"
-  client_id       = "00000000-0000-0000-0000-000000000000"
-  client_secret   = "mock-client-secret"
+  # When no credentials are provided, it will use the Azure CLI authentication
+}
+
+# Configure the AzureAD Provider to use Azure CLI authentication
+provider "azuread" {
+  # When no credentials are provided, it will use the Azure CLI authentication
 }
 
 # Module configuration for testing
@@ -38,14 +30,15 @@ module "test_resource_group" {
   source = "./.."
 
   # Required parameters
-  name     = "mock-test-rg"
+  name     = "terraform-demo-rg"
   location = "eastus"
 
   # Optional parameters with default values
   tags = {
-    Environment = "test"
+    Environment = "development"
     Project     = "terraform-module-demo"
-    ManagedBy   = "terry"
+    ManagedBy   = "terraform"
+    CreatedBy   = "your-name"
   }
 
   # Security features
@@ -53,14 +46,14 @@ module "test_resource_group" {
   lock_level           = "CanNotDelete"
   lock_notes           = "Protected resource group - managed by Terraform"
 
-  # Role assignments
-  role_assignments = {
-    reader = {
-      role_definition_name = "Reader"
-      principal_id         = "00000000-0000-0000-0000-000000000000"
-      description          = "Test reader role"
-    }
-  }
+  # Role assignments - add your own user/group objectId if desired
+  # role_assignments = {
+  #   reader = {
+  #     role_definition_name = "Reader"
+  #     principal_id         = "your-azure-ad-user-or-group-id"
+  #     description          = "Reader role for development team"
+  #   }
+  # }
 }
 
 # Output relevant resource information
