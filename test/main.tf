@@ -3,7 +3,7 @@
 
 terraform {
   required_version = ">= 1.5.0"
-  
+
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -15,7 +15,10 @@ terraform {
 # Configure the Azure Provider
 provider "azurerm" {
   features {}
-  skip_provider_registration = true
+  # Using the resource_provider_registrations property instead of skip_provider_registration
+  resource_provider_registrations {
+    enabled = false
+  }
 }
 
 # Module configuration for testing
@@ -24,23 +27,23 @@ module "test_resource_group" {
 
   name     = "terry-test-rg"
   location = "eastus"
-  
+
   # Tags for testing
   tags = {
     Environment = "test"
     Purpose     = "validation"
     ManagedBy   = "terry"
   }
-  
+
   # Enable resource lock for testing
   enable_resource_lock = true
-  lock_level = "CanNotDelete"
-  
+  lock_level           = "CanNotDelete"
+
   # Role assignments for testing
   role_assignments = {
     reader = {
       role_definition_name = "Reader"
-      principal_id         = "00000000-0000-0000-0000-000000000000"  # Placeholder ID
+      principal_id         = "00000000-0000-0000-0000-000000000000" # Placeholder ID
       description          = "Test Reader Role Assignment"
     }
   }
