@@ -15,10 +15,8 @@ terraform {
 # Configure the Azure Provider
 provider "azurerm" {
   features {}
-  # Using the resource_provider_registrations property instead of skip_provider_registration
-  resource_provider_registrations {
-    enabled = false
-  }
+  # For Terry tests, we'll just use simple provider configuration
+  skip_provider_registration = true
 }
 
 # Module configuration for testing
