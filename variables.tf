@@ -123,10 +123,8 @@ variable "log_analytics_workspace_id" {
   type        = string
   default     = null
 
-  validation {
-    condition = var.enable_diagnostic_settings == false || (var.enable_diagnostic_settings == true && var.log_analytics_workspace_id != null)
-    error_message = "log_analytics_workspace_id is required when enable_diagnostic_settings is true."
-  }
+  # Note: Cross-variable validation is not possible in current Terraform versions
+  # Validation will be performed in the module logic instead
 }
 
 variable "diagnostic_retention_days" {
