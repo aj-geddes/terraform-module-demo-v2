@@ -1,4 +1,4 @@
-# Test configuration for Terraform Module Demo
+# Test configuration for Terraform Module Demo using Service Principal
 terraform {
   required_version = ">= 1.5.0"
 
@@ -14,46 +14,20 @@ terraform {
   }
 }
 
-# Configure the Azure Provider to use Azure CLI authentication
-provider "azurerm" {
-  features {}
-  # When no credentials are provided, it will use the Azure CLI authentication
-}
-
-# Configure the AzureAD Provider to use Azure CLI authentication
-provider "azuread" {
-  # When no credentials are provided, it will use the Azure CLI authentication
-}
-
 # Module configuration for testing
 module "test_resource_group" {
   source = "./.."
 
   # Required parameters
-  name     = "terraform-demo-rg"
-  location = "eastus"
+  name     = var.name
+  location = var.location
 
-  # Optional parameters with default values
-  tags = {
-    Environment = "development"
-    Project     = "terraform-module-demo"
-    ManagedBy   = "terraform"
-    CreatedBy   = "your-name"
-  }
-
-  # Security features
-  enable_resource_lock = true
-  lock_level           = "CanNotDelete"
-  lock_notes           = "Protected resource group - managed by Terraform"
-
-  # Role assignments - add your own user/group objectId if desired
-  # role_assignments = {
-  #   reader = {
-  #     role_definition_name = "Reader"
-  #     principal_id         = "your-azure-ad-user-or-group-id"
-  #     description          = "Reader role for development team"
-  #   }
-  # }
+  # Optional parameters
+  tags                 = var.tags
+  enable_resource_lock = var.enable_resource_lock
+  lock_level           = var.lock_level
+  lock_notes           = var.lock_notes
+  role_assignments     = var.role_assignments
 }
 
 # Output relevant resource information
