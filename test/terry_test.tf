@@ -13,45 +13,14 @@ terraform {
   }
 }
 
-# Variables for authentication
-variable "subscription_id" {
-  description = "Azure Subscription ID"
-  type        = string
-  sensitive   = true
-}
-
-variable "tenant_id" {
-  description = "Azure Tenant ID"
-  type        = string
-  sensitive   = true
-}
-
-variable "client_id" {
-  description = "Azure Client ID (Service Principal)"
-  type        = string
-  sensitive   = true
-}
-
-variable "client_secret" {
-  description = "Azure Client Secret (Service Principal)"
-  type        = string
-  sensitive   = true
-}
-
-# Configure the Azure Provider
+# Configure the Azure Provider - will use environment variables for authentication
 provider "azurerm" {
   features {}
-  
-  subscription_id = var.subscription_id
-  tenant_id       = var.tenant_id
-  client_id       = var.client_id
-  client_secret   = var.client_secret
+  # Authentication will use ARM_* environment variables
 }
 
 provider "azuread" {
-  tenant_id     = var.tenant_id
-  client_id     = var.client_id
-  client_secret = var.client_secret
+  # Authentication will use ARM_* environment variables 
 }
 
 # Module configuration for testing
@@ -68,7 +37,7 @@ module "test_resource_group" {
     CreatedBy   = "service-principal"
   }
 
-  # Re-enable resource lock now that we have proper permissions
+  # Resource lock configuration
   enable_resource_lock = true
   lock_level           = "CanNotDelete"
   lock_notes           = "Protected resource group - managed by Terraform"
