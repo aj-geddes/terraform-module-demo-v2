@@ -7,11 +7,9 @@ resource "azurerm_resource_group" "this" {
   location = var.location
   tags     = var.tags
 
-  # Lifecycle block for production environments
-  # To prevent destruction, uncomment and set to true
-  # lifecycle {
-  #   prevent_destroy = true
-  # }
+  lifecycle {
+    prevent_destroy = var.prevent_destroy
+  }
 }
 
 # Optional Management Lock

@@ -104,14 +104,14 @@ output "effective_tags" {
 output "resource_summary" {
   description = "Summary of the Resource Group configuration including security and compliance features."
   value = {
-    name                    = azurerm_resource_group.this.name
-    location                = azurerm_resource_group.this.location
-    tag_count               = length(var.tags)
-    prevent_destroy_enabled = false # No longer controlled via variable
-    resource_lock_enabled   = var.enable_resource_lock
-    lock_level              = var.enable_resource_lock ? var.lock_level : null
-    rbac_assignments_count  = length(var.role_assignments)
-    diagnostic_logs_enabled = var.enable_diagnostic_settings
+    name                      = azurerm_resource_group.this.name
+    location                  = azurerm_resource_group.this.location
+    tag_count                 = length(var.tags)
+    prevent_destroy_enabled   = var.prevent_destroy
+    resource_lock_enabled     = var.enable_resource_lock
+    lock_level               = var.enable_resource_lock ? var.lock_level : null
+    rbac_assignments_count   = length(var.role_assignments)
+    diagnostic_logs_enabled  = var.enable_diagnostic_settings
     retention_days          = var.enable_diagnostic_settings ? var.diagnostic_retention_days : null
   }
 }
