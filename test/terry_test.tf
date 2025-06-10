@@ -64,12 +64,14 @@ module "test_resource_group" {
   tags = {
     Environment = "test"
     Project     = "terraform-module-demo"
-    ManagedBy   = "terry"
+    ManagedBy   = "terraform"
     CreatedBy   = "service-principal"
   }
 
-  # Disable resource lock to avoid permission issues
-  enable_resource_lock = false
+  # Re-enable resource lock now that we have proper permissions
+  enable_resource_lock = true
+  lock_level           = "CanNotDelete"
+  lock_notes           = "Protected resource group - managed by Terraform"
 }
 
 # Output relevant resource information
