@@ -1,5 +1,27 @@
-# Resource Group variables - these don't need to include auth variables anymore
-# since we're using environment variables
+# Authentication variables
+variable "subscription_id" {
+  description = "The Azure Subscription ID to deploy resources to"
+  type        = string
+  sensitive   = true
+}
+
+variable "tenant_id" {
+  description = "The Azure AD Tenant ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "client_id" {
+  description = "The Service Principal App ID (Client ID)"
+  type        = string
+  sensitive   = true
+}
+
+variable "client_secret" {
+  description = "The Service Principal Client Secret"
+  type        = string
+  sensitive   = true
+}
 
 # Resource Group variables
 variable "name" {
