@@ -1,4 +1,4 @@
-# Test configuration for Terraform Module Demo using Service Principal
+# Test configuration for Terraform Module Demo
 terraform {
   required_version = ">= 1.5.0"
 
@@ -14,20 +14,36 @@ terraform {
   }
 }
 
+# Configure the Azure Provider to use environment variables for authentication
+provider "azurerm" {
+  features {}
+  # Authentication will use ARM_* environment variables
+}
+
+provider "azuread" {
+  # Authentication will use ARM_* environment variables
+}
+
 # Module configuration for testing
 module "test_resource_group" {
   source = "./.."
 
-  # Required parameters
-  name     = var.name
-  location = var.location
+  # Resource Group Configuration
+  name     = "test-resource-group"
+  location = "eastus"
 
   # Optional parameters
-  tags                 = var.tags
-  enable_resource_lock = var.enable_resource_lock
-  lock_level           = var.lock_level
-  lock_notes           = var.lock_notes
-  role_assignments     = var.role_assignments
+  tags = {
+    Environment = "test"
+    Project     = "terraform-module-demo"
+    ManagedBy   = "terraform"
+    CreatedBy   = "service-principal"
+  }
+
+  # Enable resource lock for testing
+  enable_resource_lock = true
+  lock_level           = "CanNotDelete"
+  lock_notes           = "Protected resource group - managed by Terraform"
 }
 
 # Output relevant resource information
