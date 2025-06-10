@@ -1,15 +1,9 @@
-# Configure the Azure Providers using Service Principal authentication
+# Configure the Azure Providers using environment variables
 provider "azurerm" {
   features {}
-  
-  subscription_id = var.subscription_id
-  tenant_id       = var.tenant_id
-  client_id       = var.client_id
-  client_secret   = var.client_secret
+  # Authentication will use ARM_* environment variables
 }
 
 provider "azuread" {
-  tenant_id     = var.tenant_id
-  client_id     = var.client_id
-  client_secret = var.client_secret
+  # Authentication will use ARM_* environment variables
 }

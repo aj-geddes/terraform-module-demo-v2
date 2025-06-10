@@ -1,49 +1,34 @@
-# Authentication variables
-variable "subscription_id" {
-  description = "The Azure Subscription ID to deploy resources to"
-  type        = string
-  sensitive   = true
-}
-
-variable "tenant_id" {
-  description = "The Azure AD Tenant ID"
-  type        = string
-  sensitive   = true
-}
-
-variable "client_id" {
-  description = "The Service Principal App ID (Client ID)"
-  type        = string
-  sensitive   = true
-}
-
-variable "client_secret" {
-  description = "The Service Principal Client Secret"
-  type        = string
-  sensitive   = true
-}
+# Resource Group variables - these don't need to include auth variables anymore
+# since we're using environment variables
 
 # Resource Group variables
 variable "name" {
   description = "The name of the Azure Resource Group"
   type        = string
+  default     = "test-resource-group"
 }
 
 variable "location" {
   description = "The Azure region where the Resource Group will be created"
   type        = string
+  default     = "eastus"
 }
 
 variable "tags" {
   description = "A mapping of tags to assign to the Resource Group"
   type        = map(string)
-  default     = {}
+  default     = {
+    Environment = "test"
+    Project     = "terraform-module-demo"
+    ManagedBy   = "terraform"
+    CreatedBy   = "service-principal"
+  }
 }
 
 variable "enable_resource_lock" {
   description = "Enable Azure Resource Manager lock on the Resource Group"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "lock_level" {

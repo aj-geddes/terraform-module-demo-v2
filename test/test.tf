@@ -14,16 +14,6 @@ terraform {
   }
 }
 
-# Configure the Azure Provider to use environment variables for authentication
-provider "azurerm" {
-  features {}
-  # Authentication will use ARM_* environment variables
-}
-
-provider "azuread" {
-  # Authentication will use ARM_* environment variables
-}
-
 # Module configuration for testing
 module "test_resource_group" {
   source = "./.."
