@@ -10,7 +10,7 @@ crash.log
 crash.*.log
 
 # Exclude all .tfvars files, which are likely to contain sensitive data
-# *.tfvars
+*.tfvars
 *.tfvars.json
 
 # Ignore override files
@@ -23,15 +23,5 @@ override.tf.json
 .terraformrc
 terraform.rc
 
-# Backup files
-*.bak
-
-# Plan files
-tfplan
-
-# Credentials and secrets
-credentials.tfvars
-*secret*.tfvars
-
-# Lock files
-.terraform.lock.hcl
+# Ignore .DS_Store files
+.DS_Store
