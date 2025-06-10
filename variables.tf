@@ -6,7 +6,7 @@ variable "name" {
   type        = string
 
   validation {
-    condition = can(regex("^[a-zA-Z0-9.\\(\\)-]{1,90}$", var.name)) && !can(regex("\\.$", var.name))
+    condition     = can(regex("^[a-zA-Z0-9.\\(\\)-]{1,90}$", var.name)) && !can(regex("\\.$", var.name))
     error_message = "Resource Group name must be 1-90 characters long, contain only alphanumeric characters, periods, underscores, hyphens, and parentheses, and cannot end with a period."
   }
 }
