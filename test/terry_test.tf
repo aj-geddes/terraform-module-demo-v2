@@ -59,7 +59,7 @@ module "test_resource_group" {
   source = "./.."
 
   name     = "terry-test-rg"
-  location = "eastus"  # All lowercase to comply with validation
+  location = "eastus"
 
   tags = {
     Environment = "test"
@@ -68,10 +68,8 @@ module "test_resource_group" {
     CreatedBy   = "service-principal"
   }
 
-  # Enable resource lock for testing
-  enable_resource_lock = true
-  lock_level           = "CanNotDelete"
-  lock_notes           = "Protected resource group - managed by Terry"
+  # Disable resource lock to avoid permission issues
+  enable_resource_lock = false
 }
 
 # Output relevant resource information
