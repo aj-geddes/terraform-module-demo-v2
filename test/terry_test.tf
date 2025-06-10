@@ -13,14 +13,45 @@ terraform {
   }
 }
 
+# Variables for authentication
+variable "subscription_id" {
+  description = "Azure Subscription ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "tenant_id" {
+  description = "Azure Tenant ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "client_id" {
+  description = "Azure Client ID (Service Principal)"
+  type        = string
+  sensitive   = true
+}
+
+variable "client_secret" {
+  description = "Azure Client Secret (Service Principal)"
+  type        = string
+  sensitive   = true
+}
+
 # Configure the Azure Provider
 provider "azurerm" {
   features {}
-  # Authentication will use variables passed to Terry
+  
+  subscription_id = var.subscription_id
+  tenant_id       = var.tenant_id
+  client_id       = var.client_id
+  client_secret   = var.client_secret
 }
 
 provider "azuread" {
-  # Authentication will use variables passed to Terry
+  tenant_id     = var.tenant_id
+  client_id     = var.client_id
+  client_secret = var.client_secret
 }
 
 # Module configuration for testing
